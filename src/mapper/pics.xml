@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.PicsDAO">
+	<resultMap type="pics" id="picsMap">
+		<id property="picsid" column="picsid" />
+		<result property="picname" column="picname" />
+		<result property="image" column="image" />
+		<result property="graphsid" column="graphsid" />
+		<result property="title" column="title" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertPics" parameterType="pics">
+		insert into pics(picsid , picname , image , graphsid ) values(#{picsid} , #{picname} , #{image} , #{graphsid} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updatePics" parameterType="pics">
+		update pics set picname=#{picname} , image=#{image} , graphsid=#{graphsid} where picsid=#{picsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deletePics" parameterType="String">
+		delete from pics where picsid = #{picsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllPics" resultMap="picsMap">
+		select a.* , b.title from pics a , graphs b where a.graphsid = b.graphsid order by picsid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getPicsById" parameterType="String" resultMap="picsMap">
+		select a.* , b.title from pics a , graphs b where a.graphsid = b.graphsid and picsid=#{picsid} order by picsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getPicsByCond" parameterType="pics" resultMap="picsMap">
+		select a.* , b.title from pics a , graphs b where a.graphsid = b.graphsid
+		<if test="picname != null and '' != picname">
+			and a.picname = #{picname}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="graphsid != null and '' != graphsid">
+			and a.graphsid = #{graphsid}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getPicsByLike" parameterType="pics" resultMap="picsMap">
+		select a.* , b.title from pics a , graphs b where a.graphsid = b.graphsid
+		<if test="picname != null and '' != picname">
+			and a.picname like CONCAT('%', CONCAT(#{picname}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="graphsid != null and '' != graphsid">
+			and b.title like CONCAT('%', CONCAT(#{graphsid}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

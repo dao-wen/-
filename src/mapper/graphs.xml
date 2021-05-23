@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.GraphsDAO">
+	<resultMap type="graphs" id="graphsMap">
+		<id property="graphsid" column="graphsid" />
+		<result property="usersid" column="usersid" />
+		<result property="title" column="title" />
+		<result property="image" column="image" />
+		<result property="contents" column="contents" />
+		<result property="addtime" column="addtime" />
+		<result property="hits" column="hits" />
+		<result property="username" column="username" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertGraphs" parameterType="graphs">
+		insert into graphs(graphsid , usersid , title , image , contents , addtime , hits ) values(#{graphsid} , #{usersid} , #{title} , #{image} , #{contents} , #{addtime}
+		, #{hits} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateGraphs" parameterType="graphs">
+		update graphs set usersid=#{usersid} , title=#{title} , image=#{image} , contents=#{contents} , addtime=#{addtime} , hits=#{hits} where graphsid=#{graphsid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteGraphs" parameterType="String">
+		delete from graphs where graphsid = #{graphsid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllGraphs" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid order by graphsid desc
+	</select>
+	
+	<select id="getHotGraphs" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid order by graphsid desc limit 10
+	</select>
+	
+	<select id="getFrontGraphs" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid order by graphsid desc limit 5
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getGraphsById" parameterType="String" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid and graphsid=#{graphsid} order by graphsid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getGraphsByCond" parameterType="graphs" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid}
+		</if>
+		<if test="title != null and '' != title">
+			and a.title = #{title}
+		</if>
+		<if test="image != null and '' != image">
+			and a.image = #{image}
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents = #{contents}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits = #{hits}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getGraphsByLike" parameterType="graphs" resultMap="graphsMap">
+		select a.* , b.username from graphs a , users b where a.usersid = b.usersid
+		<if test="usersid != null and '' != usersid">
+			and b.username like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="title != null and '' != title">
+			and a.title like CONCAT('%', CONCAT(#{title}, '%'))
+		</if>
+		<if test="image != null and '' != image">
+			and a.image like CONCAT('%', CONCAT(#{image}, '%'))
+		</if>
+		<if test="contents != null and '' != contents">
+			and a.contents like CONCAT('%', CONCAT(#{contents}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="hits != null and '' != hits">
+			and a.hits like CONCAT('%', CONCAT(#{hits}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="admin" type="com.entity.Admin" />
+		<typeAlias alias="users" type="com.entity.Users" />
+		<typeAlias alias="banner" type="com.entity.Banner" />
+		<typeAlias alias="article" type="com.entity.Article" />
+		<typeAlias alias="graphs" type="com.entity.Graphs" />
+		<typeAlias alias="pics" type="com.entity.Pics" />
+		<typeAlias alias="vedio" type="com.entity.Vedio" />
+		<typeAlias alias="ladder" type="com.entity.Ladder" />
+		<typeAlias alias="board" type="com.entity.Board" />
+		<typeAlias alias="bbs" type="com.entity.Bbs" />
+		<typeAlias alias="rebbs" type="com.entity.Rebbs" />
+		<typeAlias alias="flink" type="com.entity.Flink" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/admin.xml" />
+		<mapper resource="mapper/users.xml" />
+		<mapper resource="mapper/banner.xml" />
+		<mapper resource="mapper/article.xml" />
+		<mapper resource="mapper/graphs.xml" />
+		<mapper resource="mapper/pics.xml" />
+		<mapper resource="mapper/vedio.xml" />
+		<mapper resource="mapper/ladder.xml" />
+		<mapper resource="mapper/board.xml" />
+		<mapper resource="mapper/bbs.xml" />
+		<mapper resource="mapper/rebbs.xml" />
+		<mapper resource="mapper/flink.xml" />
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
