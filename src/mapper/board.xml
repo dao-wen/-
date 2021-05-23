@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.BoardDAO">
+	<resultMap type="board" id="boardMap">
+		<id property="boardid" column="boardid" />
+		<result property="boardname" column="boardname" />
+		<result property="addtime" column="addtime" />
+		<result property="memo" column="memo" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertBoard" parameterType="board">
+		insert into board(boardid , boardname , addtime , memo ) values(#{boardid} , #{boardname} , #{addtime} , #{memo} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateBoard" parameterType="board">
+		update board set boardname=#{boardname} , addtime=#{addtime} , memo=#{memo} where boardid=#{boardid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteBoard" parameterType="String">
+		delete from board where boardid = #{boardid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllBoard" resultMap="boardMap">
+		select a.* from board a order by boardid asc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getBoardById" parameterType="String" resultMap="boardMap">
+		select a.* from board a where boardid=#{boardid} order by boardid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getBoardByCond" parameterType="board" resultMap="boardMap">
+		select a.* from board a where 1=1
+		<if test="boardname != null and '' != boardname">
+			and a.boardname = #{boardname}
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime = #{addtime}
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo = #{memo}
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getBoardByLike" parameterType="board" resultMap="boardMap">
+		select a.* from board a where 1=1
+		<if test="boardname != null and '' != boardname">
+			and a.boardname like CONCAT('%', CONCAT(#{boardname}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+		<if test="memo != null and '' != memo">
+			and a.memo like CONCAT('%', CONCAT(#{memo}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 配置Mabatis映射文件 -->
+<mapper namespace="com.dao.LadderDAO">
+	<resultMap type="ladder" id="ladderMap">
+		<id property="ladderid" column="ladderid" />
+		<result property="usersid" column="usersid" />
+		<result property="title" column="title" />
+		<result property="addtime" column="addtime" />
+		<result property="username" column="username" />
+	</resultMap>
+	<!-- 插入语句 DAO通过id调用此配置 -->
+	<insert id="insertLadder" parameterType="ladder">
+		insert into ladder(ladderid , usersid , title , addtime ) values(#{ladderid} , #{usersid} , #{title} ,
+		#{addtime} )
+	</insert>
+	<!-- 更新语句 DAO通过id调用此配置 -->
+	<update id="updateLadder" parameterType="ladder">
+		update ladder set usersid=#{usersid} , title=#{title} , addtime=#{addtime} where ladderid=#{ladderid}
+	</update>
+	<!-- 按主键删除 DAO通过id调用此配置 -->
+	<delete id="deleteLadder" parameterType="String">
+		delete from ladder where ladderid = #{ladderid}
+	</delete>
+	<!-- 查询全部信息 DAO通过id调用此配置 -->
+	<select id="getAllLadder" resultMap="ladderMap">
+		select a.* , b.username from ladder a , users b where a.usersid = b.usersid order by ladderid desc
+	</select>
+	<!-- 按主键查询 DAO通过id调用此配置 -->
+	<select id="getLadderById" parameterType="String" resultMap="ladderMap">
+		select a.* , b.username from ladder a , users b where a.usersid = b.usersid and
+		ladderid=#{ladderid} order by ladderid desc
+	</select>
+	<!-- 按条件精确查询 DAO通过id调用此配置 -->
+	<select id="getLadderByCond" parameterType="ladder" resultMap="ladderMap">
+		select a.* , b.username from ladder a , users b where a.usersid = b.usersid
+		<if test="usersid != null and '' != usersid">
+			and a.usersid = #{usersid} order by ladderid asc
+		</if>
+	</select>
+	<!-- 按条件模糊查询 DAO通过id调用此配置 -->
+	<select id="getLadderByLike" parameterType="ladder" resultMap="ladderMap">
+		select a.* , b.username from ladder a , users b where a.usersid = b.usersid
+		<if test="usersid != null and '' != usersid">
+			and b.username like CONCAT('%', CONCAT(#{usersid}, '%'))
+		</if>
+		<if test="title != null and '' != title">
+			and a.title like CONCAT('%', CONCAT(#{title}, '%'))
+		</if>
+		<if test="addtime != null and '' != addtime">
+			and a.addtime like CONCAT('%', CONCAT(#{addtime}, '%'))
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
